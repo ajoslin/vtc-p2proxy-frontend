@@ -11,7 +11,7 @@
   },
   "scripts": {
     "start": "parcel index.html",
-    "build": "parcel build",
+    "build": "NODE_ENV=production parcel build",
     "format": "prettier es5 --no-semi --single-quote --write '**/*.js'",
     "test": "npm -s run format"
   },

@@ -2,6 +2,8 @@
 
 Frontend for VTC P2Proxy.
 
+Enter a valid wallet address or add it in the url via `?address=`
+
 ### Develop
 
 - `npm install`.
