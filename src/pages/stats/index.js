@@ -32,11 +32,7 @@ export default class WalletPage extends Component {
       address: valid ? value : ''
     })
     if (valid) {
-      window.history.replaceState(
-        {},
-        '',
-        window.location.pathname + '?address=' + value
-      )
+      Router.route('/stats/' + value, true)
     }
   }
 
