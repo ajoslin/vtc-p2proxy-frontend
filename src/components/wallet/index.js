@@ -52,7 +52,7 @@ export default class WalletStats extends Component {
         10 ** -6
     const items = [
       ['Address', props.address],
-      ['Hash Rate', Math.round(hashrate * 1e5) / 1e5],
+      ['Hash Rate', (Math.round(hashrate * 1e5) / 1e5) + ' MH/s'],
       ['Balance', Math.round(state.balance * 1e8) / 1e8 + ' VTC']
     ]
 
