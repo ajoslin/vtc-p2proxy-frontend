@@ -1,7 +1,15 @@
 import { h } from 'preact'
 import { Link } from 'preact-router'
+import StatTable from '../../components/stat-table'
 
 export default function About() {
+  const items = [
+    ['Stratum', 'stratum+tcp://p2proxy.vertcoin.org:9171'],
+    ['Username', 'Your VTC Payout Address'],
+    ['Password', 'Anything'],
+    ['Payout Threshold', '0.1 VTC']
+  ]
+
   return (
     <div>
       <h2>About</h2>
@@ -16,8 +24,13 @@ export default function About() {
         Essentially, it's a centralized pool that mines like one big miner on
         P2Pool, then pays out via pay-per-share to its miners.
       </p>
+      <p>
+        Shares pay to balances every 5 minutes. Mine with the following info:
+      </p>
 
-      <Link href="light-blue pointer" href="/stats">
+      <StatTable items={items} />
+
+      <Link className="db mt4" href="/stats">
         View Wallet Stats
       </Link>
     </div>

@@ -22,7 +22,7 @@ export default class WalletPage extends Component {
 
   handleSubmit = ev => {
     ev.preventDefault()
-    this.processAddress(ev.target.querySelector('input'))
+    this.processAddress(ev.target.querySelector('input').value)
   }
 
   processAddress(value) {
