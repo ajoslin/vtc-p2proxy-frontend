@@ -29,44 +29,14 @@ export default class ServerStats extends Component {
   }
 
   render(props, state) {
+    const lastTxn = delve(state.lastpaid, '0.0')
     const items = [
       ['Shares', state.server && Math.round(state.server.shares * 1e5) / 1e5],
       ['Active', delve(state.server, 'active')],
       ['Backlog', state.backlog],
-      ['Last Txn', delve(state.lastpaid, '0.0')]
+      ['Last Txn', `<a className='blue' href="http://bitinfocharts.com/vertcoin/tx/${lastTxn}">${lastTxn}</a>`]
     ]
 
     return <StatTable items={items} />
   }
 }
-/*
-      <table class="f6 w-100 mw8 center tc" cellspacing="0">
-        <thead>
-          <tr>
-            <th class="fw6 bb b--black-20 t1 pb3 pr3">Shares</th>
-            <th class="fw6 bb b--black-20 t1 pb3 pr3">Active</th>
-            <th class="fw6 bb b--black-20 t1 pb3 pr3">Backlog</th>
-            <th class="fw6 bb b--black-20 t1 pb3 pr3">Last Paid</th>
-          </tr>
-        </thead>
-        <tbody class="1h-copy">
-          <tr>
-            <td class="pv3 pr3 bb b--black-20">
-              {state.server && Math.round(state.server.shares * 1000) / 1000}
-            </td>
-            <td class="pv3 pr3 bb b--black-20">
-              {state.server && state.server.active}
-            </td>
-            <td class="pv3 pr3 bb b--black-20">{state.backlog}</td>
-            <td class="pv3 pr3 bb b--black-20">
-              txid:
-               {state.lastpaid && state.lastpaid[0]}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    )
-  }
-}
-
-*/

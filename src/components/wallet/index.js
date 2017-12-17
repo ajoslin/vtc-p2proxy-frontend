@@ -44,17 +44,26 @@ export default class WalletStats extends Component {
   }
 
   render(props, state) {
+    const stats = state.stats || {}
     const hashrate =
       state.hashrate &&
       parseFloat(state.hashrate[0].split(',')[0]) /
         (5 * 60) *
         2 ** 32 *
         10 ** -6
+    const startDate = new Date(Math.round(stats.start_time * 1000))
     const items = [
       ['Address', props.address],
+      stats.start_time &&
+        ['Started At', startDate.toLocaleDateString() + ', ' + startDate.toLocaleTimeString()],
       ['Hash Rate', (Math.round(hashrate * 1e5) / 1e5) + ' MH/s'],
-      ['Balance', Math.round(state.balance * 1e8) / 1e8 + ' VTC']
-    ]
+      ['Balance', Math.round(state.balance * 1e8) / 1e8 + ' VTC'],
+      stats.total_shares &&
+        ['All-Time Shares', Math.round(stats.total_shares * 1e5) / 1e5],
+      ['Recent Payments', (state.paid || []).slice(0,5).map(data => {
+        return `<div>• <a href="http://bitinfocharts.com/vertcoin/tx/${data[0]}">${data[0]}</a></div>`
+      }).join(' ')]
+    ].filter(Boolean)
 
     return <StatTable items={items} />
   }
@@ -62,12 +71,10 @@ export default class WalletStats extends Component {
   // Stats do not work at the moment.
   renderStats() {
     const { stats } = this.state
-    const startDate = new Date(Math.round(stats.start_time * 1000))
     return (
       <dl>
         <dt>Started At</dt>
         <dd>
-          {startDate.toLocaleDateString()}, {startDate.toLocaleTimeString()}
         </dd>
         <dt>Shares</dt>
         <dd>{stats.shares}</dd>

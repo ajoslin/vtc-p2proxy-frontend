@@ -46,7 +46,7 @@ export default class App extends Component {
 
   render(props, state) {
     return (
-      <div className="mw7 ml-auto mr-auto">
+      <div className="mw8 ml-auto mr-auto">
         <Nav />
 
         <div className="ph2 mt2">
