@@ -34,7 +34,10 @@ export default class ServerStats extends Component {
       ['Shares', state.server && Math.round(state.server.shares * 1e5) / 1e5],
       ['Active', delve(state.server, 'active')],
       ['Backlog', state.backlog],
-      ['Last Txn', `<a className='blue' href="http://bitinfocharts.com/vertcoin/tx/${lastTxn}">${lastTxn}</a>`]
+      [
+        'Last Txn',
+        `<a className='blue' href="http://bitinfocharts.com/vertcoin/tx/${lastTxn}">${lastTxn}</a>`
+      ]
     ]
 
     return <StatTable items={items} />

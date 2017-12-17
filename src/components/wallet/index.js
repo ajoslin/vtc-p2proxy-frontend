@@ -54,15 +54,27 @@ export default class WalletStats extends Component {
     const startDate = new Date(Math.round(stats.start_time * 1000))
     const items = [
       ['Address', props.address],
-      stats.start_time &&
-        ['Started At', startDate.toLocaleDateString() + ', ' + startDate.toLocaleTimeString()],
-      ['Hash Rate', (Math.round(hashrate * 1e5) / 1e5) + ' MH/s'],
+      stats.start_time && [
+        'Started At',
+        startDate.toLocaleDateString() + ', ' + startDate.toLocaleTimeString()
+      ],
+      ['Hash Rate', Math.round(hashrate * 1e5) / 1e5 + ' MH/s'],
       ['Balance', Math.round(state.balance * 1e8) / 1e8 + ' VTC'],
-      stats.total_shares &&
-        ['All-Time Shares', Math.round(stats.total_shares * 1e5) / 1e5],
-      ['Recent Payments', (state.paid || []).slice(0,5).map(data => {
-        return `<div>• <a href="http://bitinfocharts.com/vertcoin/tx/${data[0]}">${data[0]}</a></div>`
-      }).join(' ')]
+      stats.total_shares && [
+        'All-Time Shares',
+        Math.round(stats.total_shares * 1e5) / 1e5
+      ],
+      [
+        'Recent Payments',
+        (state.paid || [])
+          .slice(0, 5)
+          .map(data => {
+            return `<div>• <a href="http://bitinfocharts.com/vertcoin/tx/${
+              data[0]
+            }">${data[0]}</a></div>`
+          })
+          .join(' ')
+      ]
     ].filter(Boolean)
 
     return <StatTable items={items} />
@@ -74,8 +86,7 @@ export default class WalletStats extends Component {
     return (
       <dl>
         <dt>Started At</dt>
-        <dd>
-        </dd>
+        <dd />
         <dt>Shares</dt>
         <dd>{stats.shares}</dd>
         <dt>Total Shares</dt>
