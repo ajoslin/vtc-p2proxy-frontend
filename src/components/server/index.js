@@ -17,7 +17,7 @@ export default class ServerStats extends Component {
       poll(
         api.server,
         (err, result) => this.setState({ server: result }),
-        1000
+        2000
       ),
       poll(api.backlog, (err, result) => this.setState({ backlog: result })),
       poll(api.lastpaid, (err, result) => this.setState({ lastpaid: result }))
