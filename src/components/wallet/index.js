@@ -46,9 +46,9 @@ export default class WalletStats extends Component {
     return (
       <div>
         <h4 class="text-md">Hash Rate</h4>
-        {state.hashrate && state.hashrate[0].split(', ')}
+        {state.hashrate && ((parseFloat(state.hashrate[0].split(',')[0]))/(5*60)*2**32)*10**(-6)} MH/s
         <h4 class="text-md">Balance</h4>
-        {state.balance}
+        {state.balance} VTC
         <h4 class="text-md">Paid</h4>
         {state.paid}
         <h4 class="text-md">Stats</h4>
