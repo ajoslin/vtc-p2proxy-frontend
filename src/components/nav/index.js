@@ -21,7 +21,7 @@ export default function Nav() {
           className="pointer dark-gray link f4"
           activeClassName="black underline"
         >
-          Stats
+          Wallet Stats
         </Link>
       </div>
       <ServerStats />
