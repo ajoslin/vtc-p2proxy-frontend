@@ -3,6 +3,7 @@ import callAll from 'call-all-fns'
 import PropTypes from 'prop-types'
 import api from '../../api'
 import poll from '../../util/poll'
+import StatTable from '../stat-table'
 
 export default class WalletStats extends Component {
   static propTypes = {
@@ -43,20 +44,22 @@ export default class WalletStats extends Component {
   }
 
   render(props, state) {
-    return (
-      <div>
-        <h4 class="text-md">Hash Rate</h4>
-        {state.hashrate && ((parseFloat(state.hashrate[0].split(',')[0]))/(5*60)*2**32)*10**(-6)} MH/s
-        <h4 class="text-md">Balance</h4>
-        {state.balance} VTC
-        <h4 class="text-md">Paid</h4>
-        {state.paid}
-        <h4 class="text-md">Stats</h4>
-        {state.stats && this.renderStats()}
-      </div>
-    )
+    const hashrate =
+      state.hashrate &&
+      parseFloat(state.hashrate[0].split(',')[0]) /
+        (5 * 60) *
+        2 ** 32 *
+        10 ** -6
+    const items = [
+      ['Address', props.address],
+      ['Hash Rate', Math.round(hashrate * 1e5) / 1e5],
+      ['Balance', Math.round(state.balance * 1e8) / 1e8 + ' VTC']
+    ]
+
+    return <StatTable items={items} />
   }
 
+  // Stats do not work at the moment.
   renderStats() {
     const { stats } = this.state
     const startDate = new Date(Math.round(stats.start_time * 1000))

@@ -1,7 +1,9 @@
 import { h, Component } from 'preact'
 import callAll from 'call-all-fns'
+import delve from 'dlv'
 import api from '../../api'
 import poll from '../../util/poll'
+import StatTable from '../stat-table'
 
 export default class ServerStats extends Component {
   state = {
@@ -12,7 +14,11 @@ export default class ServerStats extends Component {
 
   componentDidMount() {
     this.stop = callAll([
-      poll(api.server, (err, result) => this.setState({ server: result })),
+      poll(
+        api.server,
+        (err, result) => this.setState({ server: result }),
+        1000
+      ),
       poll(api.backlog, (err, result) => this.setState({ backlog: result })),
       poll(api.lastpaid, (err, result) => this.setState({ lastpaid: result }))
     ])
@@ -23,7 +29,17 @@ export default class ServerStats extends Component {
   }
 
   render(props, state) {
-    return (
+    const items = [
+      ['Shares', state.server && Math.round(state.server.shares * 1e5) / 1e5],
+      ['Active', delve(state.server, 'active')],
+      ['Backlog', state.backlog],
+      ['Last Txn', delve(state.lastpaid, '0.0')]
+    ]
+
+    return <StatTable items={items} />
+  }
+}
+/*
       <table class="f6 w-100 mw8 center tc" cellspacing="0">
         <thead>
           <tr>
@@ -43,7 +59,8 @@ export default class ServerStats extends Component {
             </td>
             <td class="pv3 pr3 bb b--black-20">{state.backlog}</td>
             <td class="pv3 pr3 bb b--black-20">
-              {state.lastpaid && state.lastpaid.join(', ')}
+              txid:
+               {state.lastpaid && state.lastpaid[0]}
             </td>
           </tr>
         </tbody>
@@ -51,3 +68,5 @@ export default class ServerStats extends Component {
     )
   }
 }
+
+*/

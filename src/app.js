@@ -1,10 +1,11 @@
 import { Component, h } from 'preact'
 import qs from 'querystring'
-import ServerStats from './components/server'
+import Router from 'preact-router'
+import AboutPage from './pages/about'
+import StatsPage from './pages/stats'
 import WalletStats from './components/wallet'
+import Nav from './components/nav'
 import walletValidator from 'wallet-address-validator'
-
-console.log('well?', process.env.HELLO_THERE_SIR)
 
 export default class App extends Component {
   constructor(props) {
@@ -13,6 +14,9 @@ export default class App extends Component {
       walletError: null,
       walletAddress: ''
     }
+  }
+
+  componentDidMount() {
     const { address } = qs.parse(window.location.search.substring(1))
     if (address) {
       this.processAddress(address)
@@ -21,7 +25,7 @@ export default class App extends Component {
 
   handleSubmit = ev => {
     ev.preventDefault()
-    this.processAddress(ev.target.querySelector('input').value)
+    this.processAddress(document.getElementById('wallet-input'))
   }
 
   processAddress(value) {
@@ -31,6 +35,7 @@ export default class App extends Component {
       walletAddress: valid ? value : ''
     })
     if (valid) {
+      document.getElementById('wallet-input').value = value
       window.history.replaceState(
         {},
         '',
@@ -41,37 +46,15 @@ export default class App extends Component {
 
   render(props, state) {
     return (
-      <div>
-        <div class="pt2">
-          <ServerStats />
+      <div className="mw8 ml-auto mr-auto">
+        <Nav />
+
+        <div className="ph2 mt2">
+          <Router>
+            <AboutPage path="/" />
+            <StatsPage path="/stats/:address?" />
+          </Router>
         </div>
-
-        <h4>Wallet {state.walletAddress}</h4>
-
-        {!state.walletAddress && (
-          <form onSubmit={this.handleSubmit}>
-            <input
-              autofocus
-              value={state.walletAddress}
-              type="text"
-              placeholder="Enter Wallet Address"
-            />
-            <button type="submit">Use Address</button>
-            <p>{state.walletError && 'Please enter a valid wallet address.'}</p>
-          </form>
-        )}
-
-        {state.walletAddress && (
-          <div>
-            <button onClick={() => this.setState({ walletAddress: '' })}>
-              Change Address
-            </button>
-            <WalletStats
-              address={state.walletAddress}
-              key={state.walletAddress}
-            />
-          </div>
-        )}
       </div>
     )
   }

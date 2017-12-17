@@ -16,11 +16,14 @@
     "test": "npm -s run format"
   },
   "dependencies": {
+    "assert": "^1.4.1",
+    "call-all-fns": "^1.0.1",
+    "classnames": "^2.2.5",
+    "dlv": "^1.1.0",
     "isomorphic-unfetch": "^2.0.0",
     "preact": "^8.2.7",
     "preact-compat": "^3.17.0",
-    "assert": "^1.4.1",
-    "call-all-fns": "^1.0.1",
+    "preact-router": "^2.6.0",
     "prop-types": "^15.6.0",
     "unistore": "^3.0.2",
     "url-join": "^2.0.2",

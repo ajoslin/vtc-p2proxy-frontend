@@ -1,6 +1,6 @@
 export default {
   api: {
-    base: process.env.API || 'http://198.204.233.158:9000'
+    base: process.env.API || 'https://p2proxy.vertcoin.org/api'
   },
   server: 'server'
 }
