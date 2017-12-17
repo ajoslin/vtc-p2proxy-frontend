@@ -8,7 +8,7 @@ export default function Nav() {
     <nav>
       <div className="pa3 flex items-center">
         <a href="https://vertcoin.org">
-          <img src={'/dist' + logoUrl} className="h2" />
+          <img src={logoUrl} className="h2" />
         </a>
         <Link className="f3 ml2 pointer black link" href="/">
           <span className="dn di-ns">Vertcoin</span> P2Proxy Pool
