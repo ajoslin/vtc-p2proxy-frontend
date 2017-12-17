@@ -69,7 +69,7 @@ export default class WalletStats extends Component {
         (state.paid || [])
           .slice(0, 5)
           .map(data => {
-            return `<div>• <a href="http://bitinfocharts.com/vertcoin/tx/${
+            return `<div><a href="http://bitinfocharts.com/vertcoin/tx/${
               data[0]
             }">${data[0]}</a></div>`
           })
